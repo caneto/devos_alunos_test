@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
-import 'package:devos_alunos_test/app/modules/tasks/task_create_controller.dart';
-import 'package:devos_alunos_test/app/modules/tasks/widgets/calendar_button.dart';
+import 'package:devos_alunos_test/app/modules/tasks/aluno_create_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:validatorless/validatorless.dart';
 
@@ -23,7 +22,11 @@ class TaskCreatePage extends StatefulWidget {
 }
 
 class _TaskCreatePageState extends State<TaskCreatePage> {
-  final _descriptionEC = TextEditingController();
+  final _nomeEC = TextEditingController();
+  final _emailEC = TextEditingController();
+  final _telefoneEC = TextEditingController();
+  final _valorEC = TextEditingController();
+  final _senhaEC = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -40,7 +43,11 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
   @override
   void dispose() {
     super.dispose();
-    _descriptionEC.dispose();
+    _nomeEC.dispose();
+    _emailEC.dispose();
+    _telefoneEC.dispose();
+    _valorEC.dispose();
+    _senhaEC.dispose();
   }
 
   @override
@@ -65,11 +72,11 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
         onPressed: () {
           final formValid = _formKey.currentState?.validate() ?? false;
           if (formValid) {
-            widget._controller.save(_descriptionEC.text);
+            widget._controller.save(_nomeEC.text,_emailEC.text,_telefoneEC.text, double.parse(_valorEC.text), _senhaEC.text);
           }
         },
         label: const Text(
-          'Salvar Task',
+          'Salvar Aluno',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -86,7 +93,7 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'Criar Atividade',
+                  'Cadastrar Aluno',
                   style: context.titleStyle.copyWith(fontSize: 20),
                 ),
               ),
@@ -94,14 +101,42 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
                 height: 30,
               ),
               TodoListField(
-                controller: _descriptionEC,
-                validator: Validatorless.required('Descrição é obrigatória'),
-                label: '',
+                controller: _nomeEC,
+                validator: Validatorless.required('Nome é obrigatória'),
+                label: 'Nome',
               ),
               const SizedBox(
                 height: 20,
               ),
-              CalendarButton()
+              TodoListField(
+                controller: _emailEC,
+                validator: Validatorless.required('Email é obrigatória'),
+                label: 'E-Mail',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TodoListField(
+                controller: _telefoneEC,
+                validator: Validatorless.required('Telefone é obrigatória'),
+                label: 'Telefone',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TodoListField(
+                controller: _senhaEC,
+                validator: Validatorless.required('Senha é obrigatória'),
+                label: 'Senha',
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              TodoListField(
+                controller: _valorEC,
+                validator: Validatorless.required('Valor é obrigatória'),
+                label: 'Valor Salarial',
+              ),
             ],
           ),
         ),

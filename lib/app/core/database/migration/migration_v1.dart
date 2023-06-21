@@ -7,7 +7,7 @@ class MigrationV1 implements Migration {
   @override
   void create(Batch batch) {
     batch.execute('''
-      create table todo (
+      create table aluno (
         id Integer primary key autoincrement,
         nome varchar(500) not null,
         email varchar(200) not null,

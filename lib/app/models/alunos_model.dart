@@ -32,6 +32,18 @@ class AlunosModel {
     };
   }
 
+  factory AlunosModel.loadFromDB(Map<String, dynamic> aluno) {
+    return AlunosModel(
+      id: aluno['id'],
+      nome: aluno['nome'] ?? '',
+      email: aluno['email'] ?? '',
+      telefone: aluno['telefone'] ?? '',
+      valor: aluno['valor']?.toDouble() ?? 0.0,
+      senha: aluno['senha'] ?? '',
+      situacao: aluno['situacao'] == 1,
+    );
+  }
+
   factory AlunosModel.fromMap(Map<String, dynamic> map) {
     return AlunosModel(
       id: map['id']?.toInt() ?? 0,

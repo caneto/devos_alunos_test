@@ -2,14 +2,14 @@
 
 
 import '../../core/notifier/default_change_notifier.dart';
-import '../../services/tasks/tasks_services.dart';
+import '../../services/alunos/alunos_services.dart';
 
 class TaskCreateController extends DefaultChangeNotifier {
-  TasksServices _tasksServices;
+  AlunosServices _alunosServices;
   DateTime? _selectedDate;
 
-  TaskCreateController({required TasksServices tasksServices})
-      : _tasksServices = tasksServices;
+  TaskCreateController({required AlunosServices alunosServices})
+      : _alunosServices = alunosServices;
 
   set selectedDate(DateTime? selectedDate) {
     resetState();
@@ -19,16 +19,12 @@ class TaskCreateController extends DefaultChangeNotifier {
 
   DateTime? get selectedDate => _selectedDate;
 
-  Future<void> save(String description) async {
+  Future<void> save(String nome, String email, String telefone, double valor, String senha) async {
     try {
       showLoadingAndResetState();
       notifyListeners();
-      if (_selectedDate != null) {
-        await _tasksServices.save(_selectedDate!, description);
-        success();
-      } else {
-        setError('Data da task não selecionada');
-      }
+      await _alunosServices.save(nome,email,telefone,valor,senha);
+      success();
     }  catch (e, s) {
       print(e);
       print(s);

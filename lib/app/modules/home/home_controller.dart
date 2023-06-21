@@ -3,10 +3,10 @@ import '../../core/notifier/default_change_notifier.dart';
 import '../../models/task_filter_enum.dart';
 import '../../models/alunos_model.dart';
 import '../../models/total_tasks_model.dart';
-import '../../services/tasks/tasks_services.dart';
+import '../../services/alunos/alunos_services.dart';
 
 class HomeController extends DefaultChangeNotifier {
-  final TasksServices _tasksServices;
+  final AlunosServices _alunosServices;
   var filterSelected = TaskFilterEnum.today;
   TotalTasksModel? todayTotalTasks;
   TotalTasksModel? tomorrowTotalTasks;
@@ -17,16 +17,11 @@ class HomeController extends DefaultChangeNotifier {
   DateTime? selectedDay;
   bool showFinishingTasks = false;
 
-  HomeController({required TasksServices tasksServices})
-      : _tasksServices = tasksServices;
+  HomeController({required AlunosServices alunosServices})
+      : _alunosServices = alunosServices;
 
   Future<void> loadTotalTasks() async {
-    final allTasks = await Future.wait([
-      _tasksServices.getToday(),
-      _tasksServices.getTomorrow(),
-      _tasksServices.getWeek(),
-    ]);
-
+    _alunosServices.getAllAlunos();
     notifyListeners();
   }
 
@@ -34,21 +29,21 @@ class HomeController extends DefaultChangeNotifier {
     filterSelected = filter;
     showLoading();
     notifyListeners();
-    List<AlunosModel> tasks;
+    List<AlunosModel> alunos;
 
-    switch(filter) {
+    //switch(filter) {
       //case TaskFilterEnum.today:
       //  tasks = await _tasksServices.getToday();
       //  break;
       //case TaskFilterEnum.tomorrow:
       //  tasks = await _tasksServices.getTomorrow();
       //  break;
-      case TaskFilterEnum.week:
-        final weekModel = await _tasksServices.getWeek();
-        initialDateOfWeek = weekModel.startDate;
-        tasks = weekModel.tasks;
-        break;
-    }
+     // case TaskFilterEnum.week:
+     //   final weekModel = await _tasksServices.getWeek();
+     //   initialDateOfWeek = weekModel.startDate;
+     //   tasks = weekModel.tasks;
+     //   break;
+    //}
     //filteredTasks = tasks;
     //allTasks = tasks;
 
@@ -70,10 +65,10 @@ class HomeController extends DefaultChangeNotifier {
     showLoadingAndResetState();
     notifyListeners();
 
-    final taskUpdate = alunos.copyWith(
+    final alunoUpdate = alunos.copyWith(
       situacao: !alunos.situacao
     );
-    await _tasksServices.checkOrUncheckTask(taskUpdate);
+    await _alunosServices.checkOrUncheckAlunos(alunoUpdate);
     hideLoading();
     refreshPage();
   }
@@ -85,7 +80,7 @@ class HomeController extends DefaultChangeNotifier {
   }
 
   Future<void> deleteTasks(int id) async {
-    await _tasksServices.deleteById(id);
+    await _alunosServices.deleteById(id);
     refreshPage();
     notifyListeners();
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../repositories/tasks/tasks_repository.dart';
+import '../../../repositories/alunos/alunos_repository.dart';
 
 class HomeDrawer extends StatelessWidget {
   final nameVN = ValueNotifier<String>('');
@@ -15,7 +15,7 @@ class HomeDrawer extends StatelessWidget {
         children: [
           ListTile(
             onTap: () {
-              context.read<TasksRepository>().deleteAllTasks();
+              context.read<AlunosRepository>().deleteAllAlunos();
             },
             title: const Text('Sair'),
           ),
