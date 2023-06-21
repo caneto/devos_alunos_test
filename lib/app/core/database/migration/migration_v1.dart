@@ -1,4 +1,5 @@
 
+// ignore: depend_on_referenced_packages
 import 'package:sqflite_common/sqlite_api.dart';
 
 import 'migration.dart';
@@ -14,6 +15,7 @@ class MigrationV1 implements Migration {
         telefone varchar(200) not null,
         valor real not null,
         senha varchar(100) not null,
+        observacao varchar(500) not null,
         situacao int
       )
     ''');

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/task_filter_enum.dart';
-import '../../../models/total_tasks_model.dart';
+import '../../../models/total_alunos_model.dart';
 import '../home_controller.dart';
 import 'todo_card_filter.dart';
 
@@ -27,31 +27,21 @@ class HomeFilters extends StatelessWidget {
           child: Row(
             children: [
               TodoCardFilter(
-                label: 'HOJE',
+                label: 'Em Dia',
                 taskFilter: TaskFilterEnum.today,
                 totalTasksModel:
-                    context.select<HomeController, TotalTasksModel?>(
-                        (controller) => controller.todayTotalTasks),
+                    context.select<HomeController, TotalAlunosModel?>(
+                        (controller) => controller.totalAlunosModels),
                 selected: context.select<HomeController, TaskFilterEnum>(
                         (value) => value.filterSelected) ==
                     TaskFilterEnum.today,
               ),
               TodoCardFilter(
-                label: 'AMANHÃ',
-                taskFilter: TaskFilterEnum.tomorrow,
-                totalTasksModel:
-                    context.select<HomeController, TotalTasksModel?>(
-                        (controller) => controller.tomorrowTotalTasks),
-                selected: context.select<HomeController, TaskFilterEnum>(
-                        (value) => value.filterSelected) ==
-                    TaskFilterEnum.tomorrow,
-              ),
-              TodoCardFilter(
-                label: 'SEMANA',
+                label: 'Atrasado',
                 taskFilter: TaskFilterEnum.week,
                 totalTasksModel:
-                    context.select<HomeController, TotalTasksModel?>(
-                        (controller) => controller.weekTotalTasks),
+                    context.select<HomeController, TotalAlunosModel?>(
+                        (controller) => controller.totalAlunosAtrasados),
                 selected: context.select<HomeController, TaskFilterEnum>(
                         (value) => value.filterSelected) ==
                     TaskFilterEnum.week,

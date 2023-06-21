@@ -8,7 +8,7 @@ import '../../models/task_filter_enum.dart';
 import '../tasks/aluno_module.dart';
 import 'home_controller.dart';
 import 'widgets/home_drawer.dart';
-import 'widgets/home_tasks.dart';
+import 'widgets/home_aluno.dart';
 
 class HomePage extends StatefulWidget {
   final HomeController _homeController;
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
               PopupMenuItem<bool>(
                 value: true,
                 child: Text(
-                  '${widget._homeController.showFinishingTasks ? 'Esconder' : 'Mostrar'} tarefas concluidas',
+                  '${widget._homeController.showSituacaoAluno ? 'Esconder' : 'Mostrar'} tarefas concluidas',
                 ),
               )
             ],
@@ -102,12 +102,12 @@ class _HomePageState extends State<HomePage> {
                 minWidth: constraints.maxWidth,
               ),
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 child: const IntrinsicHeight(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      HomeTasks()
+                      HomeAluno()
                     ],
                   ),
                 ),

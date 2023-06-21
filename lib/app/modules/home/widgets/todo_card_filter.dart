@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/task_filter_enum.dart';
-import '../../../models/total_tasks_model.dart';
+import '../../../models/total_alunos_model.dart';
 import '../home_controller.dart';
 
 class TodoCardFilter extends StatelessWidget {
   final String label;
   final TaskFilterEnum taskFilter;
-  final TotalTasksModel? totalTasksModel;
+  final TotalAlunosModel? totalTasksModel;
   final bool selected;
 
   const TodoCardFilter({
@@ -21,22 +21,22 @@ class TodoCardFilter extends StatelessWidget {
   });
 
   int _getQtyTasks() {
-    final total = totalTasksModel?.totalTasks ?? 0;
-    final totalFinish = totalTasksModel?.totalTasksFinish ?? 0;
-    return total - totalFinish;
+    //final total = totalTasksModel?.totalTasks ?? 0;
+    //final totalFinish = totalTasksModel?.totalTasksFinish ?? 0;
+    return 0; //total - totalFinish;
   }
 
-  double _getPercentFinish() {
-    final total = totalTasksModel?.totalTasks ?? 0.0;
-    final totalFinish = totalTasksModel?.totalTasksFinish ?? 0.1;
+ // double _getPercentFinish() {
+ //   final total = totalTasksModel?.totalTasks ?? 0.0;
+ //   final totalFinish = totalTasksModel?.totalTasksFinish ?? 0.1;
 
-    if (total == 0) {
-      return 0.0;
-    } else {
-      return (totalFinish * 100) / total / 100;
-    }
-    
-  }
+ //   if (total == 0) {
+ //     return 0.0;
+ //   } else {
+ //     return (totalFinish * 100) / total / 100;
+ //   }
+ //   
+ // }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class TodoCardFilter extends StatelessWidget {
               child: CircularProgressIndicator(),
             ) */
             Text(
-              '${_getQtyTasks()} TASKS',
+              '${_getQtyTasks()} Alunos',
               style: context.titleStyle.copyWith(
                 fontSize: 10,
                 color: selected ? Colors.white : Colors.grey,
@@ -85,7 +85,7 @@ class TodoCardFilter extends StatelessWidget {
             TweenAnimationBuilder<double>(
               tween: Tween(
                 begin: 0.0,
-                end: _getPercentFinish(),
+                end: 0, //_getPercentFinish(),
               ),
               duration: const Duration(seconds: 1),
               builder: (context, value, child) {

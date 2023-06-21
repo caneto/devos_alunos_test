@@ -19,11 +19,11 @@ class TaskCreateController extends DefaultChangeNotifier {
 
   DateTime? get selectedDate => _selectedDate;
 
-  Future<void> save(String nome, String email, String telefone, double valor, String senha) async {
+  Future<void> save(String nome, String email, String telefone, double valor, String senha, String observacao) async {
     try {
       showLoadingAndResetState();
       notifyListeners();
-      await _alunosServices.save(nome,email,telefone,valor,senha);
+      await _alunosServices.save(nome,email,telefone,valor,senha, observacao);
       success();
     }  catch (e, s) {
       print(e);

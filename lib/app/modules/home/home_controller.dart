@@ -1,27 +1,34 @@
-
 import '../../core/notifier/default_change_notifier.dart';
 import '../../models/task_filter_enum.dart';
 import '../../models/alunos_model.dart';
-import '../../models/total_tasks_model.dart';
+import '../../models/total_alunos_model.dart';
 import '../../services/alunos/alunos_services.dart';
 
 class HomeController extends DefaultChangeNotifier {
   final AlunosServices _alunosServices;
   var filterSelected = TaskFilterEnum.today;
-  TotalTasksModel? todayTotalTasks;
-  TotalTasksModel? tomorrowTotalTasks;
-  TotalTasksModel? weekTotalTasks;
-  List<AlunosModel> allTasks = [];
+  TotalAlunosModel? totalAlunosModels;
+  TotalAlunosModel? totalAlunosAtrasados;
+  List<AlunosModel> allAlunos = [];
   List<AlunosModel> filteredTasks = [];
-  DateTime? initialDateOfWeek;
-  DateTime? selectedDay;
-  bool showFinishingTasks = false;
+  bool showSituacaoAluno = false;
 
   HomeController({required AlunosServices alunosServices})
       : _alunosServices = alunosServices;
 
   Future<void> loadTotalTasks() async {
     _alunosServices.getAllAlunos();
+
+    totalAlunosModels = TotalAlunosModel(
+      totalAlunos: allAlunos.length,
+      totalAlunosSituacao: allAlunos.where((aluno) => aluno.situacao).length,
+    );
+
+    totalAlunosAtrasados = TotalAlunosModel(
+      totalAlunos: allAlunos.length,
+      totalAlunosSituacao: allAlunos.where((aluno) => aluno.situacao).length,
+    );
+
     notifyListeners();
   }
 
@@ -32,22 +39,22 @@ class HomeController extends DefaultChangeNotifier {
     List<AlunosModel> alunos;
 
     //switch(filter) {
-      //case TaskFilterEnum.today:
-      //  tasks = await _tasksServices.getToday();
-      //  break;
-      //case TaskFilterEnum.tomorrow:
-      //  tasks = await _tasksServices.getTomorrow();
-      //  break;
-     // case TaskFilterEnum.week:
-     //   final weekModel = await _tasksServices.getWeek();
-     //   initialDateOfWeek = weekModel.startDate;
-     //   tasks = weekModel.tasks;
-     //   break;
+    //case TaskFilterEnum.today:
+    alunos = await _alunosServices.getAllAlunos();
+    //  break;
+    //case TaskFilterEnum.tomorrow:
+    //  tasks = await _tasksServices.getTomorrow();
+    //  break;
+    // case TaskFilterEnum.week:
+    //   final weekModel = await _tasksServices.getWeek();
+    //   initialDateOfWeek = weekModel.startDate;
+    //   tasks = weekModel.tasks;
+    //   break;
     //}
     //filteredTasks = tasks;
-    //allTasks = tasks;
+    allAlunos = alunos;
 
-    if(!showFinishingTasks) {
+    if (!showSituacaoAluno) {
       filteredTasks = filteredTasks.where((task) => !task.situacao).toList();
     }
 
@@ -65,16 +72,14 @@ class HomeController extends DefaultChangeNotifier {
     showLoadingAndResetState();
     notifyListeners();
 
-    final alunoUpdate = alunos.copyWith(
-      situacao: !alunos.situacao
-    );
+    final alunoUpdate = alunos.copyWith(situacao: !alunos.situacao);
     await _alunosServices.checkOrUncheckAlunos(alunoUpdate);
     hideLoading();
     refreshPage();
   }
 
-   void showOrHideFinishTask() {
-    showFinishingTasks = !showFinishingTasks;
+  void showOrHideFinishTask() {
+    showSituacaoAluno = !showSituacaoAluno;
     refreshPage();
     notifyListeners();
   }
@@ -86,10 +91,9 @@ class HomeController extends DefaultChangeNotifier {
   }
 
   Future<void> showOnlyFinishTask() async {
-    filteredTasks = allTasks.where((task) {
-      return task.situacao;
+    filteredTasks = allAlunos.where((task) {
+      return !task.situacao;
     }).toList();
     notifyListeners();
   }
-
 }

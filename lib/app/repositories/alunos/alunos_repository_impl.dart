@@ -10,7 +10,7 @@ class AlunosRepositoryImpl implements AlunosRepository {
       : _sqliteConnectionFectory = sqliteConnectionFectory;
 
   @override
-  Future<void> save(String nome, String email, String telefone, double valor, String senha) async {
+  Future<void> save(String nome, String email, String telefone, double valor, String senha, String observacao) async {
     final conn = await _sqliteConnectionFectory.openConnection();
     await conn.insert("aluno", {
       'id': null,
@@ -19,6 +19,7 @@ class AlunosRepositoryImpl implements AlunosRepository {
       'telefone': telefone,
       'valor': valor,
       'senha': senha,
+      'observacao': observacao,
       'situacao': 0
     });
   }
@@ -43,16 +44,30 @@ class AlunosRepositoryImpl implements AlunosRepository {
     ''');
     return result.map((e) => AlunosModel.loadFromDB(e)).toList();
   }
+
+  @override
+  Future<List<AlunosModel>> findBySituacao(int situacao) async {
+    final conn = await _sqliteConnectionFectory.openConnection();
+    final result = await conn.rawQuery('''
+      select *
+      from aluno
+      where situacao = ?
+      order by name
+    ''', [
+      situacao,
+    ]);
+    return result.map((e) => AlunosModel.loadFromDB(e)).toList();
+  }
   
   @override
   Future<void> deleteAllAlunos() async {
     final conn = await _sqliteConnectionFectory.openConnection();
-    await conn.rawDelete("delete from todo");
+    await conn.rawDelete("delete from aluno");
   }
   
   @override
   Future<void> deleteById(int id) async {
     final conn = await _sqliteConnectionFectory.openConnection();
-    await conn.rawDelete("delete from todo where id = ? ", [id]);
+    await conn.rawDelete("delete from aluno where id = ? ", [id]);
   }
 }

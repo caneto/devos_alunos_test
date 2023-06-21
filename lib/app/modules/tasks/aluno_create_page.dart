@@ -27,6 +27,7 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
   final _telefoneEC = TextEditingController();
   final _valorEC = TextEditingController();
   final _senhaEC = TextEditingController();
+  final _observacaoEC = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -72,7 +73,7 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
         onPressed: () {
           final formValid = _formKey.currentState?.validate() ?? false;
           if (formValid) {
-            widget._controller.save(_nomeEC.text,_emailEC.text,_telefoneEC.text, double.parse(_valorEC.text), _senhaEC.text);
+            widget._controller.save(_nomeEC.text,_emailEC.text,_telefoneEC.text, double.parse(_valorEC.text), _senhaEC.text, _observacaoEC.text);
           }
         },
         label: const Text(
@@ -82,62 +83,78 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
           ),
         ),
       ),
-      body: Form(
-        key: _formKey,
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Cadastrar Aluno',
-                  style: context.titleStyle.copyWith(fontSize: 20),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Cadastrar Aluno',
+                    style: context.titleStyle.copyWith(fontSize: 20),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              TodoListField(
-                controller: _nomeEC,
-                validator: Validatorless.required('Nome é obrigatória'),
-                label: 'Nome',
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TodoListField(
-                controller: _emailEC,
-                validator: Validatorless.required('Email é obrigatória'),
-                label: 'E-Mail',
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TodoListField(
-                controller: _telefoneEC,
-                validator: Validatorless.required('Telefone é obrigatória'),
-                label: 'Telefone',
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TodoListField(
-                controller: _senhaEC,
-                validator: Validatorless.required('Senha é obrigatória'),
-                label: 'Senha',
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              TodoListField(
-                controller: _valorEC,
-                validator: Validatorless.required('Valor é obrigatória'),
-                label: 'Valor Salarial',
-              ),
-            ],
+                const SizedBox(
+                  height: 30,
+                ),
+                TodoListField(
+                  controller: _nomeEC,
+                  keyboardType: TextInputType.name,
+                  validator: Validatorless.required('Nome é obrigatória'),
+                  label: 'Nome',
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TodoListField(
+                  controller: _emailEC,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: Validatorless.required('Email é obrigatória'),
+                  label: 'E-Mail',
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TodoListField(
+                  controller: _telefoneEC,
+                  keyboardType: TextInputType.phone,
+                  validator: Validatorless.required('Telefone é obrigatória'),
+                  label: 'Telefone',
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TodoListField(
+                  controller: _senhaEC,
+                  keyboardType: TextInputType.visiblePassword,
+                  validator: Validatorless.required('Senha é obrigatória'),
+                  label: 'Senha',
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TodoListField(
+                  controller: _observacaoEC,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 3,
+                  validator: Validatorless.required('observação é obrigatória'),
+                  label: 'Observacação',
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TodoListField(
+                  controller: _valorEC,
+                  validator: Validatorless.required('Valor da Mensalidade é obrigatória'),
+                  label: 'Mensalidade',
+                ),
+              ],
+            ),
           ),
         ),
       ),
