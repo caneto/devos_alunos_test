@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
 import 'package:devos_alunos_test/app/modules/tasks/aluno_create_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:validatorless/validatorless.dart';
 
 import '../../core/notifier/default_listener_notifier.dart';
@@ -10,6 +13,8 @@ import '../../core/widget/todo_list_field.dart';
 
 class TaskCreatePage extends StatefulWidget {
   final TaskCreateController _controller;
+
+
 
   TaskCreatePage({
     Key? key,
@@ -22,6 +27,7 @@ class TaskCreatePage extends StatefulWidget {
 }
 
 class _TaskCreatePageState extends State<TaskCreatePage> {
+
   final _nomeEC = TextEditingController();
   final _emailEC = TextEditingController();
   final _telefoneEC = TextEditingController();
@@ -31,8 +37,16 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
+    
+    // final sp = await SharedPreferences.getInstance();
+     // ignore: unused_local_variable
+    // int? alunoId = sp.getInt('alunoId');
+
+   //  print(alunoId);
+
+    // ignore: use_build_context_synchronously
     DefaultListenerNotifier(
       changeNotifier: widget._controller,
     ).listener(context: context, sucessVoidCallback: (notifier, listenerIstance) {
@@ -53,6 +67,8 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
 
   @override
   Widget build(BuildContext context) {
+  
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -73,7 +89,7 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
         onPressed: () {
           final formValid = _formKey.currentState?.validate() ?? false;
           if (formValid) {
-            widget._controller.save(_nomeEC.text,_emailEC.text,_telefoneEC.text, double.parse(_valorEC.text), _senhaEC.text, _observacaoEC.text);
+            widget._controller.save(_nomeEC.text,_emailEC.text,_telefoneEC.text, UtilBrasilFields.converterMoedaParaDouble(_valorEC.text), _senhaEC.text, _observacaoEC.text);
           }
         },
         label: const Text(
@@ -102,7 +118,7 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
                 const SizedBox(
                   height: 30,
                 ),
-                TodoListField(
+                AlunoListField(
                   controller: _nomeEC,
                   keyboardType: TextInputType.name,
                   validator: Validatorless.required('Nome é obrigatória'),
@@ -111,7 +127,7 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                TodoListField(
+                AlunoListField(
                   controller: _emailEC,
                   keyboardType: TextInputType.emailAddress,
                   validator: Validatorless.required('Email é obrigatória'),
@@ -120,25 +136,32 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                TodoListField(
+                AlunoListField(
                   controller: _telefoneEC,
                   keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    TelefoneInputFormatter(),
+                  ],
                   validator: Validatorless.required('Telefone é obrigatória'),
                   label: 'Telefone',
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                TodoListField(
+                AlunoListField(
                   controller: _senhaEC,
                   keyboardType: TextInputType.visiblePassword,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   validator: Validatorless.required('Senha é obrigatória'),
                   label: 'Senha',
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                TodoListField(
+                AlunoListField(
                   controller: _observacaoEC,
                   keyboardType: TextInputType.multiline,
                   maxLines: 3,
@@ -148,8 +171,13 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                TodoListField(
+                AlunoListField(
                   controller: _valorEC,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    CentavosInputFormatter(),
+                  ],
                   validator: Validatorless.required('Valor da Mensalidade é obrigatória'),
                   label: 'Mensalidade',
                 ),

@@ -45,8 +45,8 @@ dependencies:
   google_fonts: ^4.0.3
   flutter_overlay_loader: ^2.0.0
   flutter_slidable: ^2.0.0
-
-
+  brasil_fields: ^1.13.1
+  shared_preferences: ^2.1.2
   
 dev_dependencies:
   flutter_test:

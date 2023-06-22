@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../ui/todo_list_icons.dart';
 
-class TodoListField extends StatelessWidget {
+class AlunoListField extends StatelessWidget {
   final String label;
   final IconButton? suffixIconButton;
   final bool obscureText;
@@ -12,10 +12,11 @@ class TodoListField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
   final int minLines = 1;
   final int maxLines;
  
-  TodoListField({
+  AlunoListField({
     Key? key,
     required this.label,
     this.suffixIconButton,
@@ -24,7 +25,8 @@ class TodoListField extends StatelessWidget {
     this.controller,
     this.validator,
     this.focusNode,
-    this.maxLines = 1,
+    this.maxLines = 1, 
+    this.inputFormatters,
   })  : assert(
           obscureText == true ? suffixIconButton == null : true,
           'ObscureText não pode ser enviado em conjunto com suffixIconButtom',
@@ -44,6 +46,7 @@ class TodoListField extends StatelessWidget {
           keyboardType: keyboardType,
           minLines: minLines,
           maxLines: maxLines,
+          inputFormatters: inputFormatters,
           decoration: InputDecoration(
             labelText: label,
             labelStyle: const TextStyle(fontSize: 15, color: Colors.black),
