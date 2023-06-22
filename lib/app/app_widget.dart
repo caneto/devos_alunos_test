@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core/database/sqlite_adm_connection.dart';
-import 'core/navigator/todo_list_navigator.dart';
+import 'core/navigator/alunos_list_navigator.dart';
 import 'core/ui/todo_list_ui_config.dart';
 import 'modules/home/home_module.dart';
 import 'modules/splash/splash_page.dart';
@@ -37,7 +37,7 @@ class _AppWidgetState extends State<AppWidget> {
       debugShowCheckedModeBanner: false,
       title: 'Devos Alunos',
       theme: TodoListUiConfig.theme,
-      navigatorKey: TodoListNavigator.navigatorKey,
+      navigatorKey: AlunosListNavigator.navigatorKey,
       // ignore: prefer_const_literals_to_create_immutables
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -50,7 +50,7 @@ class _AppWidgetState extends State<AppWidget> {
       ],
       routes: {
         ...HomeModule().routers,
-        ...TasksModule().routers,
+        ...AlunoModule().routers,
       },
       home: const SplashPage(),
     );

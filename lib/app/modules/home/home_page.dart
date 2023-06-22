@@ -3,7 +3,6 @@ import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/notifier/default_listener_notifier.dart';
-import '../../core/ui/todo_list_icons.dart';
 import '../../models/task_filter_enum.dart';
 import '../tasks/aluno_module.dart';
 import 'home_controller.dart';
@@ -55,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           );
         },
         pageBuilder: (context, animation, secondaryAnimation) {
-          return TasksModule().getPage('/task/create', context);
+          return AlunoModule().getPage('/task/create', context);
         },
       ),
     );
@@ -69,21 +68,21 @@ class _HomePageState extends State<HomePage> {
         iconTheme: IconThemeData(color: context.primaryColor),
         backgroundColor: const Color(0xFFFAFBFE),
         elevation: 0,
-        actions: [
-          PopupMenuButton(
-            icon: const Icon(TodoListIcons.filter),
-            onSelected: (value) {
-              widget._homeController.showOrHideFinishTask();
-            },
-            itemBuilder: (_) => [
-              PopupMenuItem<bool>(
-                value: true,
-                child: Text(
-                  '${widget._homeController.showSituacaoAluno ? 'Esconder' : 'Mostrar'} tarefas concluidas',
-                ),
-              )
-            ],
-          )
+        actions: const [
+          //PopupMenuButton(
+          //  icon: const Icon(TodoListIcons.filter),
+          //  onSelected: (value) {
+          //    widget._homeController.showOrHideFinishTask();
+          //  },
+          //  itemBuilder: (_) => [
+          //    PopupMenuItem<bool>(
+          //      value: true,
+          //      child: Text(
+          //        '${widget._homeController.showSituacaoAluno ? 'Esconder' : 'Mostrar'} tarefas concluidas',
+          //      ),
+          //    )
+          //  ],
+         // )
         ],
       ),
       floatingActionButton: FloatingActionButton(

@@ -6,9 +6,14 @@ import '../../../models/alunos_model.dart';
 import '../home_controller.dart';
 import 'aluno.dart';
 
-class HomeAluno extends StatelessWidget {
+class HomeAluno extends StatefulWidget {
   const HomeAluno({Key? key}) : super(key: key);
 
+  @override
+  State<HomeAluno> createState() => _HomeAlunoState();
+}
+
+class _HomeAlunoState extends State<HomeAluno> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -23,11 +28,13 @@ class HomeAluno extends StatelessWidget {
             style: context.titleStyle,
           ),
           Column(
-              children: context
-                  .select<HomeController, List<AlunosModel>>(
-                      (controller) => controller.allAlunos)
-                  .map((t) => Aluno(aluno: t,))
-                  .toList(),
+            children: context
+                .select<HomeController, List<AlunosModel>>(
+                    (controller) => controller.allAlunos)
+                .map((t) => Aluno(
+                      aluno: t,
+                    ))
+                .toList(),
           ),
         ],
       ),

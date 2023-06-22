@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-class TodoListPage extends StatelessWidget {
+class AlunoListPage extends StatelessWidget {
   final List<SingleChildWidget>? _binding;
   final WidgetBuilder _page;
-
-  TodoListPage(
+  
+  const AlunoListPage(
       {Key? key,
       List<SingleChildWidget>? bindings,
       required WidgetBuilder page})
