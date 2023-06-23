@@ -33,6 +33,8 @@
     - flutter_overlay_loader - 2.0.0
     - flutter_slidable - 2.0.0
     - intl - 0.18.0
+    - brasil_fields - 1.3.1
+    - shared_preferences - 2.1.2
     
     entre outros
 </p>
