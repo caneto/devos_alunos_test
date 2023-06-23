@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/notifier/default_listener_notifier.dart';
-import '../../models/task_filter_enum.dart';
+import '../../models/alunos_filter_enum.dart';
 import '../tasks/aluno_module.dart';
 import 'home_controller.dart';
 import 'widgets/home_drawer.dart';
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
         });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       widget._homeController.loadTotalTasks();
-      widget._homeController.findTasks(filter: TaskFilterEnum.today);
+      widget._homeController.findTasks(filter: AlunosFilterEnum.emDia);
     });
   }
 
@@ -44,9 +44,6 @@ class _HomePageState extends State<HomePage> {
     sp.setInt('alunoId', 0);
 
     await Navigator.of(context).push(
-      //MaterialPageRoute(
-      //  builder: (_) => TasksModule().getPage('/task/create', context),
-      //),
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 400),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -83,7 +80,7 @@ class _HomePageState extends State<HomePage> {
           //    PopupMenuItem<bool>(
           //      value: true,
           //      child: Text(
-          //        '${widget._homeController.showSituacaoAluno ? 'Esconder' : 'Mostrar'} tarefas concluidas',
+          //        '${widget._homeController.showSituacaoAluno ? 'Esconder' : 'Mostrar'} condição de alunos',
           //      ),
           //    )
           //  ],

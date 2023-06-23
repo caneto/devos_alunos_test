@@ -30,7 +30,23 @@ class TaskCreateController extends DefaultChangeNotifier {
     }  catch (e, s) {
       print(e);
       print(s);
-      setError('Erro ao cadastrar task');
+      setError('Erro ao cadastrar aluno');
+    } finally {
+      hideLoading();
+      notifyListeners();
+    }
+  }
+
+  Future<void> edit(int alunoId, String nome, String email, String telefone, double valor, String senha, String observacao, int situacao) async {
+    try {
+      showLoadingAndResetState();
+      notifyListeners();
+      await _alunosServices.edit(alunoId, nome,email,telefone,valor,senha, observacao, situacao);
+      success();
+    }  catch (e, s) {
+      print(e);
+      print(s);
+      setError('Erro ao editar aluno');
     } finally {
       hideLoading();
       notifyListeners();
@@ -38,16 +54,20 @@ class TaskCreateController extends DefaultChangeNotifier {
   }
 
   Future<AlunosModel?> findbyId({required int alunoId}) async {
-    showLoading();
-    notifyListeners();
-
-    aluno = await _alunosServices.findById(alunoId);    
-
-    //print(aluno);
-
-    hideLoading();
-    notifyListeners();
-
-    return aluno;
+    try {
+      showLoading();
+      notifyListeners();
+      aluno = await _alunosServices.findById(alunoId);    
+      //success();
+      return aluno;
+    }  catch (e, s) {
+      print(e);
+      print(s);
+      setError('Erro ao cadastrar task');
+    } finally {
+      hideLoading();
+      notifyListeners();
+    }
+    return null;
   }
 }

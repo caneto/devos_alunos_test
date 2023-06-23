@@ -25,6 +25,21 @@ class AlunosRepositoryImpl implements AlunosRepository {
   }
 
   @override
+  Future<void> edit(int alunoId, String nome, String email, String telefone, double valor, String senha, String observacao, int situacao) async {
+    final conn = await _sqliteConnectionFectory.openConnection();
+    await conn.update("aluno", {
+      'id': alunoId,
+      'nome': nome,
+      'email': email,
+      'telefone': telefone,
+      'valor': valor,
+      'senha': senha,
+      'observacao': observacao,
+      'situacao': situacao
+    });
+  }
+
+  @override
   Future<void> checkOrUncheckAlunos(AlunosModel aluno) async {
     final conn = await _sqliteConnectionFectory.openConnection();
     final situacao = aluno.situacao ? 1 : 0;

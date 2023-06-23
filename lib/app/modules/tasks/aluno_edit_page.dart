@@ -2,7 +2,6 @@
 
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
-import 'package:devos_alunos_test/app/modules/home/widgets/aluno.dart';
 import 'package:devos_alunos_test/app/modules/tasks/aluno_create_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +10,6 @@ import 'package:validatorless/validatorless.dart';
 
 import '../../core/notifier/default_listener_notifier.dart';
 import '../../core/widget/todo_list_field.dart';
-import '../../models/alunos_model.dart';
 
 class AlunoEditPage extends StatefulWidget {
   final TaskCreateController _controller;
@@ -58,10 +56,14 @@ class _AlunoEditPageState extends State<AlunoEditPage> {
     alunoId = sp.getInt('alunoId') ;
 
     if(alunoId != 0) {
-      Future<AlunosModel?> aluno = widget._controller.findbyId(alunoId: alunoId!);
-      print(aluno);
-     // _nomeEC.text = widget._controller.aluno!.nome; 
+      final aluno = await widget._controller.findbyId(alunoId: alunoId!);
       
+      _nomeEC.text = aluno?.nome ?? ''; 
+      _emailEC.text = aluno?.email ?? ''; 
+      _telefoneEC.text = aluno?.telefone ?? ''; 
+      _valorEC.text = aluno?.valor.toString() ?? ''; 
+      _senhaEC.text = aluno?.senha ?? ''; 
+      _observacaoEC.text = aluno?.observacao ?? ''; 
     }
     
   }

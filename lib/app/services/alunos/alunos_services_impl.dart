@@ -13,6 +13,11 @@ class AlunosServicesImpl implements AlunosServices {
           String observacao, String senha) =>
       _alunoRepository.save(nome, email, telefone, valor, senha, observacao);
 
+  Future<void> edit(int alunoId, String nome, String email, String telefone,
+          double valor, String senha, String observacao, int situacao) =>
+      _alunoRepository.edit(
+          alunoId, nome, email, telefone, valor, senha, observacao, situacao);
+
   @override
   Future<void> checkOrUncheckAlunos(AlunosModel aluno) =>
       _alunoRepository.checkOrUncheckAlunos(aluno);

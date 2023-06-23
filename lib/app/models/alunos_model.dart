@@ -9,6 +9,7 @@ class AlunosModel {
   final String telefone;
   final double valor;
   final String senha;
+  final String observacao;
   final bool situacao;
   const AlunosModel({
     required this.id,
@@ -17,6 +18,7 @@ class AlunosModel {
     required this.telefone,
     required this.valor,
     required this.senha,
+    required this.observacao,
     required this.situacao
   });
 
@@ -28,6 +30,7 @@ class AlunosModel {
       'telefone': telefone,
       'valor': valor,
       'senha': senha,
+      'observacao': observacao,
       'situacao': situacao,
     };
   }
@@ -40,6 +43,7 @@ class AlunosModel {
       telefone: aluno['telefone'] ?? '',
       valor: aluno['valor']?.toDouble() ?? 0.0,
       senha: aluno['senha'] ?? '',
+      observacao: aluno['observacao'] ?? '',
       situacao: aluno['situacao'] == 1,
     );
   }
@@ -52,6 +56,7 @@ class AlunosModel {
       telefone: map['telefone'] ?? '',
       valor: map['valor']?.toDouble() ?? 0.0,
       senha: map['senha'] ?? '',
+      observacao: map['observacao'] ?? '',
       situacao: map['situacao'] ?? false,
     );
   }
@@ -67,6 +72,7 @@ class AlunosModel {
     String? telefone,
     double? valor,
     String? senha,
+    String? observacao,
     bool? situacao,
   }) {
     return AlunosModel(
@@ -76,6 +82,7 @@ class AlunosModel {
       telefone: telefone ?? this.telefone,
       valor: valor ?? this.valor,
       senha: senha ?? this.senha,
+      observacao: observacao ?? this.observacao,
       situacao: situacao ?? this.situacao,
     );
   }

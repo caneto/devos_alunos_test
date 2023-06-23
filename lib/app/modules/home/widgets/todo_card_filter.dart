@@ -2,20 +2,20 @@ import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../models/task_filter_enum.dart';
+import '../../../models/alunos_filter_enum.dart';
 import '../../../models/total_alunos_model.dart';
 import '../home_controller.dart';
 
-class TodoCardFilter extends StatelessWidget {
+class AlunosCardFilter extends StatelessWidget {
   final String label;
-  final TaskFilterEnum taskFilter;
+  final AlunosFilterEnum alunosFilter;
   final TotalAlunosModel? totalTasksModel;
   final bool selected;
 
-  const TodoCardFilter({
+  const AlunosCardFilter({
     super.key,
     required this.label,
-    required this.taskFilter,
+    required this.alunosFilter,
     required this.selected,
     this.totalTasksModel,
   });
@@ -41,7 +41,7 @@ class TodoCardFilter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.read<HomeController>().findTasks(filter: taskFilter),
+      onTap: () => context.read<HomeController>().findTasks(filter: alunosFilter),
       borderRadius: BorderRadius.circular(30),
       child: Container(
         constraints: const BoxConstraints(

@@ -1,12 +1,12 @@
 import '../../core/notifier/default_change_notifier.dart';
-import '../../models/task_filter_enum.dart';
+import '../../models/alunos_filter_enum.dart';
 import '../../models/alunos_model.dart';
 import '../../models/total_alunos_model.dart';
 import '../../services/alunos/alunos_services.dart';
 
 class HomeController extends DefaultChangeNotifier {
   final AlunosServices _alunosServices;
-  var filterSelected = TaskFilterEnum.today;
+  var filterSelected = AlunosFilterEnum.emDia;
   TotalAlunosModel? totalAlunosModels;
   TotalAlunosModel? totalAlunosAtrasados;
   List<AlunosModel> allAlunos = [];
@@ -32,7 +32,7 @@ class HomeController extends DefaultChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> findTasks({required TaskFilterEnum filter}) async {
+  Future<void> findTasks({required AlunosFilterEnum filter}) async {
     filterSelected = filter;
     showLoading();
     notifyListeners();
