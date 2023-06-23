@@ -54,7 +54,7 @@ class _AlunoState extends State<Aluno> {
   Widget build(BuildContext context) {
     return Slidable(
       endActionPane: ActionPane(
-        extentRatio: 0.5,
+        extentRatio: 0.6,
         dragDismissible: true,
         motion: const StretchMotion(),
         children: [
@@ -66,10 +66,10 @@ class _AlunoState extends State<Aluno> {
               topLeft: Radius.circular(100),
             ),
             label: "Editar",
-            foregroundColor: Colors.white,
+            foregroundColor: Colors.yellowAccent,
             onPressed: (_) => _goToEditAluno(context),
             icon: Icons.edit,
-            backgroundColor: Colors.blue,
+            backgroundColor: context.primaryColor,
           ),
           SlidableAction(
             borderRadius: const BorderRadius.only(
