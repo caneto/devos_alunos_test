@@ -6,7 +6,7 @@ import 'core/navigator/alunos_list_navigator.dart';
 import 'core/ui/aluno_list_ui_config.dart';
 import 'modules/home/home_module.dart';
 import 'modules/splash/splash_page.dart';
-import 'modules/tasks/aluno_module.dart';
+import 'modules/alunos/aluno_module.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({Key? key}) : super(key: key);

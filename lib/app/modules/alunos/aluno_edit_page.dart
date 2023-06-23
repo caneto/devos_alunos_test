@@ -2,28 +2,31 @@
 
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
-import 'package:devos_alunos_test/app/modules/tasks/aluno_create_controller.dart';
+import 'package:devos_alunos_test/app/modules/alunos/aluno_create_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:validatorless/validatorless.dart';
 
 import '../../core/notifier/default_listener_notifier.dart';
 import '../../core/widget/todo_list_field.dart';
 
-class AlunoCreatePage extends StatefulWidget {
+class AlunoEditPage extends StatefulWidget {
   final TaskCreateController _controller;
 
-  AlunoCreatePage({
+  AlunoEditPage({
     Key? key,
     required TaskCreateController controller,
   })  : _controller = controller,
         super(key: key);
 
   @override
-  State<AlunoCreatePage> createState() => _AlunoCreatePageState();
+  State<AlunoEditPage> createState() => _AlunoEditPageState();
 }
 
-class _AlunoCreatePageState extends State<AlunoCreatePage> {
+class _AlunoEditPageState extends State<AlunoEditPage> {
+  int? alunoId;
+
   final _nomeEC = TextEditingController();
   final _emailEC = TextEditingController();
   final _telefoneEC = TextEditingController();
@@ -36,6 +39,8 @@ class _AlunoCreatePageState extends State<AlunoCreatePage> {
   initState() {
     super.initState();
 
+    load();
+
     // ignore: use_build_context_synchronously
     DefaultListenerNotifier(
       changeNotifier: widget._controller,
@@ -47,6 +52,22 @@ class _AlunoCreatePageState extends State<AlunoCreatePage> {
         });
   }
 
+  Future load() async {
+    final sp = await SharedPreferences.getInstance();
+    alunoId = sp.getInt('alunoId');
+
+    if (alunoId != 0) {
+      final aluno = await widget._controller.findbyId(alunoId: alunoId!);
+
+      _nomeEC.text = aluno?.nome ?? '';
+      _emailEC.text = aluno?.email ?? '';
+      _telefoneEC.text = aluno?.telefone ?? '';
+      _valorEC.text = aluno?.valor.toString() ?? '';
+      _senhaEC.text = aluno?.senha ?? '';
+      _observacaoEC.text = aluno?.observacao ?? '';
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -55,6 +76,7 @@ class _AlunoCreatePageState extends State<AlunoCreatePage> {
     _telefoneEC.dispose();
     _valorEC.dispose();
     _senhaEC.dispose();
+    _observacaoEC.dispose();
   }
 
   @override
@@ -79,7 +101,8 @@ class _AlunoCreatePageState extends State<AlunoCreatePage> {
         onPressed: () {
           final formValid = _formKey.currentState?.validate() ?? false;
           if (formValid) {
-            widget._controller.save(
+            widget._controller.edit(
+                alunoId!,
                 _nomeEC.text,
                 _emailEC.text,
                 _telefoneEC.text,
@@ -105,10 +128,10 @@ class _AlunoCreatePageState extends State<AlunoCreatePage> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'Cadastrar Aluno',
+                    'Edicão Aluno',
                     style: context.titleStyle.copyWith(
                       fontSize: 20,
-                      color: context.primaryColorLight
+                      color: context.primaryColorLight,
                     ),
                   ),
                 ),

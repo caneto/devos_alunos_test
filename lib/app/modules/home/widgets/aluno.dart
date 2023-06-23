@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/alunos_model.dart';
-import '../../tasks/aluno_module.dart';
+import '../../alunos/aluno_module.dart';
 import '../home_controller.dart';
 
 class Aluno extends StatefulWidget {

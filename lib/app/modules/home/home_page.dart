@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/notifier/default_listener_notifier.dart';
 import '../../models/alunos_filter_enum.dart';
-import '../tasks/aluno_module.dart';
+import '../alunos/aluno_module.dart';
 import 'home_controller.dart';
 import 'widgets/home_drawer.dart';
 import 'widgets/home_aluno.dart';

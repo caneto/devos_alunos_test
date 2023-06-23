@@ -1,5 +1,5 @@
-import 'package:devos_alunos_test/app/modules/tasks/aluno_create_controller.dart';
-import 'package:devos_alunos_test/app/modules/tasks/aluno_create_page.dart';
+import 'package:devos_alunos_test/app/modules/alunos/aluno_create_controller.dart';
+import 'package:devos_alunos_test/app/modules/alunos/aluno_create_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/modules/aluno_list_module.dart';
