@@ -13,7 +13,7 @@ import '../../core/widget/todo_list_field.dart';
 
 class AlunoEditPage extends StatefulWidget {
   final TaskCreateController _controller;
-  
+
   AlunoEditPage({
     Key? key,
     required TaskCreateController controller,
@@ -25,9 +25,8 @@ class AlunoEditPage extends StatefulWidget {
 }
 
 class _AlunoEditPageState extends State<AlunoEditPage> {
-
   int? alunoId;
-  
+
   final _nomeEC = TextEditingController();
   final _emailEC = TextEditingController();
   final _telefoneEC = TextEditingController();
@@ -39,33 +38,34 @@ class _AlunoEditPageState extends State<AlunoEditPage> {
   @override
   initState() {
     super.initState();
-     
-    load(); 
+
+    load();
 
     // ignore: use_build_context_synchronously
     DefaultListenerNotifier(
       changeNotifier: widget._controller,
-    ).listener(context: context, sucessVoidCallback: (notifier, listenerIstance) {
-      listenerIstance.dispose();
-      Navigator.pop(context);
-    });
+    ).listener(
+        context: context,
+        sucessVoidCallback: (notifier, listenerIstance) {
+          listenerIstance.dispose();
+          Navigator.pop(context);
+        });
   }
 
   Future load() async {
     final sp = await SharedPreferences.getInstance();
-    alunoId = sp.getInt('alunoId') ;
+    alunoId = sp.getInt('alunoId');
 
-    if(alunoId != 0) {
+    if (alunoId != 0) {
       final aluno = await widget._controller.findbyId(alunoId: alunoId!);
-      
-      _nomeEC.text = aluno?.nome ?? ''; 
-      _emailEC.text = aluno?.email ?? ''; 
-      _telefoneEC.text = aluno?.telefone ?? ''; 
-      _valorEC.text = aluno?.valor.toString() ?? ''; 
-      _senhaEC.text = aluno?.senha ?? ''; 
-      _observacaoEC.text = aluno?.observacao ?? ''; 
+
+      _nomeEC.text = aluno?.nome ?? '';
+      _emailEC.text = aluno?.email ?? '';
+      _telefoneEC.text = aluno?.telefone ?? '';
+      _valorEC.text = aluno?.valor.toString() ?? '';
+      _senhaEC.text = aluno?.senha ?? '';
+      _observacaoEC.text = aluno?.observacao ?? '';
     }
-    
   }
 
   @override
@@ -101,14 +101,19 @@ class _AlunoEditPageState extends State<AlunoEditPage> {
         onPressed: () {
           final formValid = _formKey.currentState?.validate() ?? false;
           if (formValid) {
-            widget._controller.save(_nomeEC.text,_emailEC.text,_telefoneEC.text, UtilBrasilFields.converterMoedaParaDouble(_valorEC.text), _senhaEC.text, _observacaoEC.text);
+            widget._controller.edit(
+                alunoId!,
+                _nomeEC.text,
+                _emailEC.text,
+                _telefoneEC.text,
+                UtilBrasilFields.converterMoedaParaDouble(_valorEC.text),
+                _senhaEC.text,
+                _observacaoEC.text);
           }
         },
         label: const Text(
           'Salvar Aluno',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
       body: SingleChildScrollView(
@@ -124,7 +129,10 @@ class _AlunoEditPageState extends State<AlunoEditPage> {
                   alignment: Alignment.center,
                   child: Text(
                     'Edicão Aluno',
-                    style: context.titleStyle.copyWith(fontSize: 20),
+                    style: context.titleStyle.copyWith(
+                      fontSize: 20,
+                      color: context.primaryColorLight,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -164,9 +172,7 @@ class _AlunoEditPageState extends State<AlunoEditPage> {
                 AlunoListField(
                   controller: _senhaEC,
                   keyboardType: TextInputType.visiblePassword,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   validator: Validatorless.required('Senha é obrigatória'),
                   label: 'Senha',
                 ),
@@ -185,12 +191,12 @@ class _AlunoEditPageState extends State<AlunoEditPage> {
                 ),
                 AlunoListField(
                   controller: _valorEC,
-                  keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
-                    CentavosInputFormatter(),
+                    CentavosInputFormatter(moeda: true),
                   ],
-                  validator: Validatorless.required('Valor da Mensalidade é obrigatória'),
+                  validator: Validatorless.required(
+                      'Valor da Mensalidade é obrigatória'),
                   label: 'Mensalidade',
                 ),
               ],

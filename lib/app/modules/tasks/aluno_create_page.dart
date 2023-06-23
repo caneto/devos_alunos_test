@@ -24,7 +24,6 @@ class AlunoCreatePage extends StatefulWidget {
 }
 
 class _AlunoCreatePageState extends State<AlunoCreatePage> {
-
   final _nomeEC = TextEditingController();
   final _emailEC = TextEditingController();
   final _telefoneEC = TextEditingController();
@@ -36,16 +35,17 @@ class _AlunoCreatePageState extends State<AlunoCreatePage> {
   @override
   initState() {
     super.initState();
-     
+
     // ignore: use_build_context_synchronously
     DefaultListenerNotifier(
       changeNotifier: widget._controller,
-    ).listener(context: context, sucessVoidCallback: (notifier, listenerIstance) {
-      listenerIstance.dispose();
-      Navigator.pop(context);
-    });
+    ).listener(
+        context: context,
+        sucessVoidCallback: (notifier, listenerIstance) {
+          listenerIstance.dispose();
+          Navigator.pop(context);
+        });
   }
-
 
   @override
   void dispose() {
@@ -59,8 +59,6 @@ class _AlunoCreatePageState extends State<AlunoCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-  
-    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -81,14 +79,18 @@ class _AlunoCreatePageState extends State<AlunoCreatePage> {
         onPressed: () {
           final formValid = _formKey.currentState?.validate() ?? false;
           if (formValid) {
-            widget._controller.save(_nomeEC.text,_emailEC.text,_telefoneEC.text, UtilBrasilFields.converterMoedaParaDouble(_valorEC.text), _senhaEC.text, _observacaoEC.text);
+            widget._controller.save(
+                _nomeEC.text,
+                _emailEC.text,
+                _telefoneEC.text,
+                UtilBrasilFields.converterMoedaParaDouble(_valorEC.text),
+                _senhaEC.text,
+                _observacaoEC.text);
           }
         },
         label: const Text(
           'Salvar Aluno',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
       body: SingleChildScrollView(
@@ -104,7 +106,10 @@ class _AlunoCreatePageState extends State<AlunoCreatePage> {
                   alignment: Alignment.center,
                   child: Text(
                     'Cadastrar Aluno',
-                    style: context.titleStyle.copyWith(fontSize: 20),
+                    style: context.titleStyle.copyWith(
+                      fontSize: 20,
+                      color: context.primaryColorLight
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -144,9 +149,7 @@ class _AlunoCreatePageState extends State<AlunoCreatePage> {
                 AlunoListField(
                   controller: _senhaEC,
                   keyboardType: TextInputType.visiblePassword,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   validator: Validatorless.required('Senha é obrigatória'),
                   label: 'Senha',
                 ),
@@ -165,12 +168,12 @@ class _AlunoCreatePageState extends State<AlunoCreatePage> {
                 ),
                 AlunoListField(
                   controller: _valorEC,
-                  keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
-                    CentavosInputFormatter(),
+                    CentavosInputFormatter(moeda: true),
                   ],
-                  validator: Validatorless.required('Valor da Mensalidade é obrigatória'),
+                  validator: Validatorless.required(
+                      'Valor da Mensalidade é obrigatória'),
                   label: 'Mensalidade',
                 ),
               ],

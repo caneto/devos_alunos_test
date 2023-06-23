@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core/database/sqlite_adm_connection.dart';
 import 'core/navigator/alunos_list_navigator.dart';
-import 'core/ui/todo_list_ui_config.dart';
+import 'core/ui/aluno_list_ui_config.dart';
 import 'modules/home/home_module.dart';
 import 'modules/splash/splash_page.dart';
 import 'modules/tasks/aluno_module.dart';
@@ -36,7 +36,7 @@ class _AppWidgetState extends State<AppWidget> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Devos Alunos',
-      theme: TodoListUiConfig.theme,
+      theme: AlunoListUiConfig.theme,
       navigatorKey: AlunosListNavigator.navigatorKey,
       // ignore: prefer_const_literals_to_create_immutables
       localizationsDelegates: [

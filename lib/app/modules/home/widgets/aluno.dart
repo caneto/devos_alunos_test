@@ -1,3 +1,4 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -119,7 +120,13 @@ class _AlunoState extends State<Aluno> {
             Padding(
               padding: const EdgeInsets.only(top: 6, left: 5, right: 5),
               child: Text(
-                'Senha: ${widget._aluno.senha}',
+                'Senha: ${widget._aluno.senha.trim()}',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 6, left: 5, right: 5),
+              child: Text(
+                'Observação: ${widget._aluno.observacao.trim()}',
               ),
             ),
             Row(
@@ -128,7 +135,7 @@ class _AlunoState extends State<Aluno> {
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    'Mensalidade: ${widget._aluno.valor.toString()}',
+                    'Mensalidade: ${UtilBrasilFields.obterReal(widget._aluno.valor)}',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),

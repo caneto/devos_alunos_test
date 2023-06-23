@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../ui/todo_list_icons.dart';
+import '../ui/aluno_list_icons.dart';
 
 class AlunoListField extends StatelessWidget {
   final String label;
@@ -63,8 +63,8 @@ class AlunoListField extends StatelessWidget {
                     ? IconButton(
                         icon: Icon(
                           !obscureTextValue
-                              ? TodoListIcons.eye_slash
-                              : TodoListIcons.eye,
+                              ? AlunoListIcons.eye_slash
+                              : AlunoListIcons.eye,
                           size: 15,
                         ),
                         onPressed: () {

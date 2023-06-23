@@ -23,10 +23,6 @@ class _HomeAlunoState extends State<HomeAluno> {
           const SizedBox(
             height: 20,
           ),
-          Text(
-            'Alunos',
-            style: context.titleStyle,
-          ),
           Column(
             children: context
                 .select<HomeController, List<AlunosModel>>(

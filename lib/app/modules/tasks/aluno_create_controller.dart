@@ -37,11 +37,11 @@ class TaskCreateController extends DefaultChangeNotifier {
     }
   }
 
-  Future<void> edit(int alunoId, String nome, String email, String telefone, double valor, String senha, String observacao, int situacao) async {
+  Future<void> edit(int alunoId, String nome, String email, String telefone, double valor, String senha, String observacao) async {
     try {
       showLoadingAndResetState();
       notifyListeners();
-      await _alunosServices.edit(alunoId, nome,email,telefone,valor,senha, observacao, situacao);
+      await _alunosServices.edit(alunoId, nome,email,telefone,valor,senha, observacao);
       success();
     }  catch (e, s) {
       print(e);

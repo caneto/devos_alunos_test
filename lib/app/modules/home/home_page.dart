@@ -39,7 +39,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _goToCreateTask(BuildContext context) async {
-
     final sp = await SharedPreferences.getInstance();
     sp.setInt('alunoId', 0);
 
@@ -70,50 +69,67 @@ class _HomePageState extends State<HomePage> {
         iconTheme: IconThemeData(color: context.primaryColor),
         backgroundColor: const Color(0xFFFAFBFE),
         elevation: 0,
-        actions: const [
-          //PopupMenuButton(
-          //  icon: const Icon(TodoListIcons.filter),
-          //  onSelected: (value) {
-          //    widget._homeController.showOrHideFinishTask();
-          //  },
-          //  itemBuilder: (_) => [
-          //    PopupMenuItem<bool>(
-          //      value: true,
-          //      child: Text(
-          //        '${widget._homeController.showSituacaoAluno ? 'Esconder' : 'Mostrar'} condição de alunos',
-          //      ),
-          //    )
-          //  ],
-         // )
+        actions: [
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black45),
+              borderRadius: BorderRadius.circular(60),
+            ),
+            child: IconButton(
+              icon: const Icon(
+                Icons.add,
+                color: Colors.blue,
+              ),
+              onPressed: () => _goToCreateTask(context),
+            ),
+          ),
+          const SizedBox(width: 5,)
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: context.primaryColor,
-        onPressed: () => _goToCreateTask(context),
-        child: const Icon(Icons.add),
-      ),
+      //floatingActionButton: FloatingActionButton(
+      //  backgroundColor: context.primaryColor,
+      //  onPressed: () => _goToCreateTask(context),
+      //  child: const Icon(Icons.add),
+      //),
       backgroundColor: const Color(0xFFFAFBFE),
       drawer: HomeDrawer(),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: constraints.maxHeight,
-                minWidth: constraints.maxWidth,
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                child: const Text(
+                  'Alunos',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue),
+                ),
               ),
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: const IntrinsicHeight(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      HomeAluno()
-                    ],
+              Expanded(
+                child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
+                      minWidth: constraints.maxWidth,
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      child: const IntrinsicHeight(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            HomeAluno(),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           );
         },
       ),

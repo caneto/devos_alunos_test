@@ -6,7 +6,6 @@ extension ThemeExtensions on BuildContext {
   Color get deleteColor => Theme.of(this).indicatorColor;
   TextTheme get textTheme => Theme.of(this).textTheme;
   
-
   TextStyle get titleStyle => const TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.bold,

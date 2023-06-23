@@ -19,8 +19,8 @@
 ///
 import 'package:flutter/widgets.dart';
 
-class TodoListIcons {
-  TodoListIcons._();
+class AlunoListIcons {
+  AlunoListIcons._();
 
   static const _kFontFam = 'TodoListIcons';
   static const String? _kFontPkg = null;
