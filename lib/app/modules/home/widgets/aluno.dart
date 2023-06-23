@@ -22,14 +22,10 @@ class Aluno extends StatefulWidget {
 
 class _AlunoState extends State<Aluno> {
   Future<void> _goToEditAluno(BuildContext context) async {
-    
     final sp = await SharedPreferences.getInstance();
     sp.setInt('alunoId', widget._aluno.id);
-    
+
     await Navigator.of(context).push(
-      //MaterialPageRoute(
-      //  builder: (_) => TasksModule().getPage('/task/create', context),
-      //),
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 400),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -60,8 +56,6 @@ class _AlunoState extends State<Aluno> {
         children: [
           SlidableAction(
             borderRadius: const BorderRadius.only(
-              //bottomRight: Radius.circular(30),
-              //topRight: Radius.circular(30),
               bottomLeft: Radius.circular(100),
               topLeft: Radius.circular(100),
             ),
@@ -75,8 +69,6 @@ class _AlunoState extends State<Aluno> {
             borderRadius: const BorderRadius.only(
               bottomRight: Radius.circular(20),
               topRight: Radius.circular(20),
-              //  bottomLeft: Radius.circular(100),
-              //  topLeft: Radius.circular(100),
             ),
             label: "Excluir",
             foregroundColor: Colors.white,
@@ -87,88 +79,98 @@ class _AlunoState extends State<Aluno> {
           )
         ],
       ),
-      child: Card(
-        shadowColor: context.primaryColor,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: context.primaryColorLight,
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        elevation: 3,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
-              child: Text(
-                'Nome: ${widget._aluno.nome}',
+      child: Column(
+        children: [
+          Card(
+            shadowColor: context.primaryColor,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                color: context.primaryColorLight,
               ),
+              borderRadius: BorderRadius.circular(20),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 6, left: 5, right: 5),
-              child: Text(
-                'Email: ${widget._aluno.email}',
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 6, left: 5, right: 5),
-              child: Text(
-                'Telefone: ${widget._aluno.telefone}',
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 6, left: 5, right: 5),
-              child: Text(
-                'Senha: ${widget._aluno.senha.trim()}',
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 6, left: 5, right: 5),
-              child: Text(
-                'Observação: ${widget._aluno.observacao.trim()}',
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Text(
-                    'Mensalidade: ${UtilBrasilFields.obterReal(widget._aluno.valor)}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
+            elevation: 3,
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, left: 5, right: 5),
+                    child: Text(
+                      'Nome: ${widget._aluno.nome}',
                     ),
                   ),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Text(
-                        widget._aluno.situacao ? "Inativo" : "Ativo: ",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: widget._aluno.situacao
-                              ? Colors.red
-                              : Colors.green,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6, left: 5, right: 5),
+                    child: Text(
+                      'Email: ${widget._aluno.email}',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6, left: 5, right: 5),
+                    child: Text(
+                      'Telefone: ${widget._aluno.telefone}',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6, left: 5, right: 5),
+                    child: Text(
+                      'Senha: ${widget._aluno.senha.trim()}',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6, left: 5, right: 5),
+                    child: Text(
+                      'Observação: ${widget._aluno.observacao.trim()}',
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          'Mensalidade: ${UtilBrasilFields.obterReal(widget._aluno.valor)}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    Switch(
-                      value: !widget._aluno.situacao,
-                      onChanged: (value) => context
-                          .read<HomeController>()
-                          .checkOrUncheckTask(widget._aluno),
-                    ),
-                  ],
-                )
-              ],
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Text(
+                              widget._aluno.situacao ? "Inativo" : "Ativo: ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: widget._aluno.situacao
+                                    ? Colors.red
+                                    : Colors.green,
+                              ),
+                            ),
+                          ),
+                          Switch(
+                            value: !widget._aluno.situacao,
+                            onChanged: (value) => context
+                                .read<HomeController>()
+                                .checkOrUncheckTask(widget._aluno),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 5,
+          )
+        ],
       ),
     );
   }
