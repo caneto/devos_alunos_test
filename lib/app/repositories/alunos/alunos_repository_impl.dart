@@ -70,4 +70,17 @@ class AlunosRepositoryImpl implements AlunosRepository {
     final conn = await _sqliteConnectionFectory.openConnection();
     await conn.rawDelete("delete from aluno where id = ? ", [id]);
   }
+  
+  @override
+  Future<AlunosModel> findById(int alunoId) async {
+    final conn = await _sqliteConnectionFectory.openConnection();
+    final result = await conn.rawQuery('''
+      select *
+      from aluno
+      where id = ?
+    ''', [
+      alunoId,
+    ]);
+    return AlunosModel.loadFromDB(result.first);
+  }
 }

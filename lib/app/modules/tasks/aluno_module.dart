@@ -7,6 +7,7 @@ import '../../repositories/alunos/alunos_repository.dart';
 import '../../repositories/alunos/alunos_repository_impl.dart';
 import '../../services/alunos/alunos_services.dart';
 import '../../services/alunos/alunos_services_impl.dart';
+import 'aluno_edit_page.dart';
 
 class AlunoModule extends AlunoListModule {
   AlunoModule()
@@ -26,10 +27,10 @@ class AlunoModule extends AlunoListModule {
                 TaskCreateController(alunosServices: context.read()),
           )
         ], routers: {
-          '/task/create': (context) => TaskCreatePage(
+          '/task/create': (context) => AlunoCreatePage(
                 controller: context.read(),
               ),
-           '/task/edit': (context) => TaskCreatePage(
+           '/task/edit': (context) => AlunoEditPage(
                 controller: context.read(),
               )   
         });

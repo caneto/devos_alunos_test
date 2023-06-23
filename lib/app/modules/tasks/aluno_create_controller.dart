@@ -2,11 +2,13 @@
 
 
 import '../../core/notifier/default_change_notifier.dart';
+import '../../models/alunos_model.dart';
 import '../../services/alunos/alunos_services.dart';
 
 class TaskCreateController extends DefaultChangeNotifier {
   AlunosServices _alunosServices;
   DateTime? _selectedDate;
+  AlunosModel? aluno;
 
   TaskCreateController({required AlunosServices alunosServices})
       : _alunosServices = alunosServices;
@@ -33,5 +35,19 @@ class TaskCreateController extends DefaultChangeNotifier {
       hideLoading();
       notifyListeners();
     }
+  }
+
+  Future<AlunosModel?> findbyId({required int alunoId}) async {
+    showLoading();
+    notifyListeners();
+
+    aluno = await _alunosServices.findById(alunoId);    
+
+    //print(aluno);
+
+    hideLoading();
+    notifyListeners();
+
+    return aluno;
   }
 }

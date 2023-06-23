@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/notifier/default_listener_notifier.dart';
 import '../../models/task_filter_enum.dart';
@@ -38,6 +39,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _goToCreateTask(BuildContext context) async {
+
+    final sp = await SharedPreferences.getInstance();
+    sp.setInt('alunoId', 0);
+
     await Navigator.of(context).push(
       //MaterialPageRoute(
       //  builder: (_) => TasksModule().getPage('/task/create', context),

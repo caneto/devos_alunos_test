@@ -2,6 +2,7 @@ import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/alunos_model.dart';
 import '../../tasks/aluno_module.dart';
@@ -10,10 +11,8 @@ import '../home_controller.dart';
 class Aluno extends StatefulWidget {
   final AlunosModel _aluno;
 
-  const Aluno(
-      {Key? key,
-      required AlunosModel aluno})
-      : _aluno = aluno,        
+  const Aluno({Key? key, required AlunosModel aluno})
+      : _aluno = aluno,
         super(key: key);
 
   @override
@@ -21,8 +20,11 @@ class Aluno extends StatefulWidget {
 }
 
 class _AlunoState extends State<Aluno> {
-
   Future<void> _goToEditAluno(BuildContext context) async {
+    
+    final sp = await SharedPreferences.getInstance();
+    sp.setInt('alunoId', widget._aluno.id);
+    
     await Navigator.of(context).push(
       //MaterialPageRoute(
       //  builder: (_) => TasksModule().getPage('/task/create', context),
@@ -64,8 +66,7 @@ class _AlunoState extends State<Aluno> {
             ),
             label: "Editar",
             foregroundColor: Colors.white,
-            onPressed: (_) =>
-                _goToEditAluno(context),
+            onPressed: (_) => _goToEditAluno(context),
             icon: Icons.edit,
             backgroundColor: Colors.blue,
           ),
@@ -143,8 +144,9 @@ class _AlunoState extends State<Aluno> {
                         widget._aluno.situacao ? "Inativo" : "Ativo: ",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color:
-                              widget._aluno.situacao ? Colors.red : Colors.green,
+                          color: widget._aluno.situacao
+                              ? Colors.red
+                              : Colors.green,
                         ),
                       ),
                     ),
