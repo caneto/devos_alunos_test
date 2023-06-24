@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/widget/todo_list_logo.dart';
+import '../../core/widget/aluno_list_logo.dart';
 
 class SplashPage extends StatelessWidget {
 
@@ -10,7 +10,7 @@ class SplashPage extends StatelessWidget {
    Widget build(BuildContext context) {
        return const Scaffold(
            body: Center(
-            child: TodoListLogo(),
+            child: AlunoListLogo(),
            ),
        );
   }

@@ -6,13 +6,13 @@ import '../../../models/alunos_filter_enum.dart';
 import '../../../models/total_alunos_model.dart';
 import '../home_controller.dart';
 
-class AlunosCardFilter extends StatelessWidget {
+class HomeCardFilter extends StatelessWidget {
   final String label;
   final AlunosFilterEnum alunosFilter;
   final TotalAlunosModel? totalTasksModel;
   final bool selected;
 
-  const AlunosCardFilter({
+  const HomeCardFilter({
     super.key,
     required this.label,
     required this.alunosFilter,

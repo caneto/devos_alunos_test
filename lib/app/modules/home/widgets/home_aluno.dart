@@ -1,10 +1,9 @@
-import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/alunos_model.dart';
 import '../home_controller.dart';
-import 'aluno.dart';
+import 'home_card_aluno.dart';
 
 class HomeAluno extends StatefulWidget {
   const HomeAluno({Key? key}) : super(key: key);
@@ -27,7 +26,7 @@ class _HomeAlunoState extends State<HomeAluno> {
             children: context
                 .select<HomeController, List<AlunosModel>>(
                     (controller) => controller.allAlunos)
-                .map((t) => Aluno(
+                .map((t) => HomeCardAluno(
                       aluno: t,
                     ))
                 .toList(),

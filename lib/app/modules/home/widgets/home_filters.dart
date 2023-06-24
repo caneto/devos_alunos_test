@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../models/alunos_filter_enum.dart';
 import '../../../models/total_alunos_model.dart';
 import '../home_controller.dart';
-import 'todo_card_filter.dart';
+import 'home_card_filter.dart';
 
 class HomeFilters extends StatelessWidget {
   const HomeFilters({super.key});
@@ -26,7 +26,7 @@ class HomeFilters extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              AlunosCardFilter(
+              HomeCardFilter(
                 label: 'Em Dia',
                 alunosFilter: AlunosFilterEnum.emDia,
                 totalTasksModel:
@@ -36,7 +36,7 @@ class HomeFilters extends StatelessWidget {
                         (value) => value.filterSelected) ==
                     AlunosFilterEnum.emDia,
               ),
-              AlunosCardFilter(
+              HomeCardFilter(
                 label: 'Atrasado',
                 alunosFilter: AlunosFilterEnum.atrasados,
                 totalTasksModel:
@@ -46,7 +46,7 @@ class HomeFilters extends StatelessWidget {
                         (value) => value.filterSelected) ==
                     AlunosFilterEnum.atrasados,
               ),
-              AlunosCardFilter(
+              HomeCardFilter(
                 label: 'Cancelados',
                 alunosFilter: AlunosFilterEnum.atrasados,
                 totalTasksModel:

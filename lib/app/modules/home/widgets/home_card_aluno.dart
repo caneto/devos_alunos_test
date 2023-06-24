@@ -9,22 +9,25 @@ import '../../../models/alunos_model.dart';
 import '../../alunos/aluno_module.dart';
 import '../home_controller.dart';
 
-class Aluno extends StatefulWidget {
+class HomeCardAluno extends StatefulWidget {
   final AlunosModel _aluno;
 
-  const Aluno({Key? key, required AlunosModel aluno})
-      : _aluno = aluno,
+  const HomeCardAluno({
+    Key? key,
+    required AlunosModel aluno,
+  })  : _aluno = aluno,
         super(key: key);
 
   @override
-  State<Aluno> createState() => _AlunoState();
+  State<HomeCardAluno> createState() => _HomeCardAlunoState();
 }
 
-class _AlunoState extends State<Aluno> {
+class _HomeCardAlunoState extends State<HomeCardAluno> {
   Future<void> _goToEditAluno(BuildContext context) async {
     final sp = await SharedPreferences.getInstance();
     sp.setInt('alunoId', widget._aluno.id);
 
+    // ignore: use_build_context_synchronously
     await Navigator.of(context).push(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 400),

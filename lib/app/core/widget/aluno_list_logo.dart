@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 
 import '../navigator/alunos_list_navigator.dart';
 
-class TodoListLogo extends StatefulWidget {
-  const TodoListLogo({Key? key}) : super(key: key);
+class AlunoListLogo extends StatefulWidget {
+  const AlunoListLogo({Key? key}) : super(key: key);
 
   @override
-  State<TodoListLogo> createState() => _TodoListLogoState();
+  State<AlunoListLogo> createState() => _AlunoListLogoState();
 }
 
-class _TodoListLogoState extends State<TodoListLogo> {
+class _AlunoListLogoState extends State<AlunoListLogo> {
 
-  _TodoListLogoState() {
+  _AlunoListLogoState() {
     Timer(const Duration(milliseconds: 900), () {
       setState(() {
         AlunosListNavigator.to

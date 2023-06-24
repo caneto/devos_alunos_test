@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:validatorless/validatorless.dart';
 
 import '../../core/notifier/default_listener_notifier.dart';
-import '../../core/widget/todo_list_field.dart';
+import '../../core/widget/aluno_list_field.dart';
 
 class AlunoEditPage extends StatefulWidget {
   final TaskCreateController _controller;
