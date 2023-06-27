@@ -2,6 +2,7 @@
 
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:devos_alunos_test/app/core/ui/helpers/context_extension.dart';
+import 'package:devos_alunos_test/app/core/ui/widgets/alunos_button.dart';
 import 'package:devos_alunos_test/app/modules/alunos/aluno_create_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -75,111 +76,134 @@ class _AlunoCreatePageState extends State<AlunoCreatePage> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: context.primaryColor,
-        onPressed: () {
-          final formValid = _formKey.currentState?.validate() ?? false;
-          if (formValid) {
-            widget._controller.save(
-                _nomeEC.text,
-                _emailEC.text,
-                _telefoneEC.text,
-                UtilBrasilFields.converterMoedaParaDouble(_valorEC.text),
-                _senhaEC.text,
-                _observacaoEC.text);
-          }
-        },
-        label: const Text(
-          'Salvar Aluno',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Cadastrar Aluno',
-                    style: TextStyles.i.titleStyle.copyWith(
-                      fontSize: 20,
-                      color: context.primaryColorLight
-                    ),
-                  ),
+      body: Form(
+        key: _formKey,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'Cadastrar Aluno',
+                  style: TextStyles.i.titleStyle.copyWith(
+                      fontSize: 20, color: context.primaryColorLight),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
-                AlunoListField(
-                  controller: _nomeEC,
-                  keyboardType: TextInputType.name,
-                  validator: Validatorless.required('Nome é obrigatória'),
-                  label: 'Nome',
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                AlunoListField(
-                  controller: _emailEC,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: Validatorless.required('Email é obrigatória'),
-                  label: 'E-Mail',
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                AlunoListField(
-                  controller: _telefoneEC,
-                  keyboardType: TextInputType.phone,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    TelefoneInputFormatter(),
-                  ],
-                  validator: Validatorless.required('Telefone é obrigatória'),
-                  label: 'Telefone',
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                AlunoListField(
-                  controller: _senhaEC,
-                  keyboardType: TextInputType.visiblePassword,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  validator: Validatorless.required('Senha é obrigatória'),
-                  label: 'Senha',
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                AlunoListField(
-                  controller: _observacaoEC,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 3,
-                  validator: Validatorless.required('observação é obrigatória'),
-                  label: 'Observacação',
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                AlunoListField(
-                  controller: _valorEC,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    CentavosInputFormatter(moeda: true),
-                  ],
-                  validator: Validatorless.required(
-                      'Valor da Mensalidade é obrigatória'),
-                  label: 'Mensalidade',
-                ),
-              ],
+              ),
             ),
-          ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    AlunoListField(
+                      controller: _nomeEC,
+                      keyboardType: TextInputType.name,
+                      validator:
+                          Validatorless.required('Nome é obrigatória'),
+                      label: 'Nome',
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    AlunoListField(
+                      controller: _emailEC,
+                      keyboardType: TextInputType.emailAddress,
+                      validator:
+                          Validatorless.required('Email é obrigatória'),
+                      label: 'E-Mail',
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    AlunoListField(
+                      controller: _telefoneEC,
+                      keyboardType: TextInputType.phone,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        TelefoneInputFormatter(),
+                      ],
+                      validator:
+                          Validatorless.required('Telefone é obrigatória'),
+                      label: 'Telefone',
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    AlunoListField(
+                      controller: _senhaEC,
+                      keyboardType: TextInputType.visiblePassword,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      validator:
+                          Validatorless.required('Senha é obrigatória'),
+                      label: 'Senha',
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    AlunoListField(
+                      controller: _observacaoEC,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 3,
+                      validator: Validatorless.required(
+                          'observação é obrigatória'),
+                      label: 'Observacação',
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    AlunoListField(
+                      controller: _valorEC,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        CentavosInputFormatter(moeda: true),
+                      ],
+                      validator: Validatorless.required(
+                          'Valor da Mensalidade é obrigatória'),
+                      label: 'Mensalidade',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: context.percentWidth(.5),
+                      height: 68,
+                      padding: const EdgeInsets.all(8),
+                      child: AlunosButton(
+                        label: 'Salvar Aluno',
+                        onPressed: () {
+                          final formValid =
+                              _formKey.currentState?.validate() ?? false;
+                          if (formValid) {
+                            widget._controller.save(
+                                _nomeEC.text,
+                                _emailEC.text,
+                                _telefoneEC.text,
+                                UtilBrasilFields.converterMoedaParaDouble(
+                                    _valorEC.text),
+                                _senhaEC.text,
+                                _observacaoEC.text);
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
