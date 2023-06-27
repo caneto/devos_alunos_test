@@ -1,7 +1,8 @@
-import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
+import 'package:devos_alunos_test/app/core/ui/helpers/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/ui/styles/text_styles.dart';
 import '../../../models/alunos_filter_enum.dart';
 import '../../../models/total_alunos_model.dart';
 import '../home_controller.dart';
@@ -69,7 +70,7 @@ class HomeCardFilter extends StatelessWidget {
             ) */
             Text(
               '${_getQtyTasks()} Alunos',
-              style: context.titleStyle.copyWith(
+              style: TextStyles.i.titleStyle.copyWith(
                 fontSize: 10,
                 color: selected ? Colors.white : Colors.grey,
               ),

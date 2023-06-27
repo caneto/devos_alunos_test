@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:devos_alunos_test/app/core/ui/helpers/context_extension.dart';
 
 import '../../core/notifier/default_listener_notifier.dart';
 import '../../models/alunos_filter_enum.dart';
@@ -86,11 +86,6 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(width: 5,)
         ],
       ),
-      //floatingActionButton: FloatingActionButton(
-      //  backgroundColor: context.primaryColor,
-      //  onPressed: () => _goToCreateTask(context),
-      //  child: const Icon(Icons.add),
-      //),
       backgroundColor: const Color(0xFFFAFBFE),
       drawer: HomeDrawer(),
       body: LayoutBuilder(

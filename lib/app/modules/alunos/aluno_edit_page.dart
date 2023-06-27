@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'package:brasil_fields/brasil_fields.dart';
-import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
+import 'package:devos_alunos_test/app/core/ui/helpers/context_extension.dart';
 import 'package:devos_alunos_test/app/modules/alunos/aluno_create_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:validatorless/validatorless.dart';
 
 import '../../core/notifier/default_listener_notifier.dart';
+import '../../core/ui/styles/text_styles.dart';
 import '../../core/widget/aluno_list_field.dart';
 
 class AlunoEditPage extends StatefulWidget {
@@ -129,7 +130,7 @@ class _AlunoEditPageState extends State<AlunoEditPage> {
                   alignment: Alignment.center,
                   child: Text(
                     'Edicão Aluno',
-                    style: context.titleStyle.copyWith(
+                    style: TextStyles.i.titleStyle.copyWith(
                       fontSize: 20,
                       color: context.primaryColorLight,
                     ),

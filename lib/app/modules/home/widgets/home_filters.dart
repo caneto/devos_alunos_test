@@ -1,7 +1,7 @@
-import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/ui/styles/text_styles.dart';
 import '../../../models/alunos_filter_enum.dart';
 import '../../../models/total_alunos_model.dart';
 import '../home_controller.dart';
@@ -17,7 +17,7 @@ class HomeFilters extends StatelessWidget {
       children: [
         Text(
           'FILTROS',
-          style: context.titleStyle,
+          style: TextStyles.i.titleStyle,
         ),
         const SizedBox(
           height: 10,

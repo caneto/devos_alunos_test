@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
+import 'package:devos_alunos_test/app/core/ui/helpers/context_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../navigator/alunos_list_navigator.dart';
@@ -33,7 +33,7 @@ class _AlunoListLogoState extends State<AlunoListLogo> {
           'assets/logo.png',
           height: 200,
         ),
-        Text('Lista de Alunos', style: context.textTheme.titleLarge),
+        Text('Lista de Alunos', style: context.headline6),
       ],
     );
   }

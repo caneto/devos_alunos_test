@@ -1,10 +1,13 @@
+import 'dart:async';
+
 import 'package:brasil_fields/brasil_fields.dart';
-import 'package:devos_alunos_test/app/core/ui/theme_extensions.dart';
+import 'package:devos_alunos_test/app/core/ui/helpers/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/ui/styles/text_styles.dart';
 import '../../../models/alunos_model.dart';
 import '../../alunos/aluno_module.dart';
 import '../home_controller.dart';
@@ -23,6 +26,43 @@ class HomeCardAluno extends StatefulWidget {
 }
 
 class _HomeCardAlunoState extends State<HomeCardAluno> {
+  
+  Future<int?> _showConfirmProductDialog(AlunosModel aluno) async {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Deseja excluir o aluno ${aluno.nome}?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                context.pop();
+              },
+              child: Text(
+                'Cancelar',
+                style: TextStyles.i.textBold.copyWith(
+                  color: Colors.red,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                context.pop(aluno.id);
+              },
+              child: const Text(
+                'Confirmar',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _goToEditAluno(BuildContext context) async {
     final sp = await SharedPreferences.getInstance();
     sp.setInt('alunoId', widget._aluno.id);
@@ -75,10 +115,16 @@ class _HomeCardAlunoState extends State<HomeCardAluno> {
             ),
             label: "Excluir",
             foregroundColor: Colors.white,
-            onPressed: (_) =>
-                context.read<HomeController>().deleteTasks(widget._aluno.id),
+            onPressed: (_) async {
+              final idAluno = await _showConfirmProductDialog(widget._aluno);
+              // ignore: unrelated_type_equality_checks
+              if(idAluno != null) {
+                // ignore: use_build_context_synchronously
+                context.read<HomeController>().deleteTasks(widget._aluno.id); 
+              }
+            },
             icon: Icons.delete,
-            backgroundColor: context.deleteColor,
+            backgroundColor: context.indicatorColor,
           )
         ],
       ),
